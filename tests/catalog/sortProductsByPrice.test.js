@@ -28,13 +28,13 @@ describe('sortProductsByPrice', () => {
   });
   test("'asc' не меняет исходный массив [1, 3, 4]", () => {
     const initialArray = products.filter(({ id }) => [1, 3, 4].includes(id));
-    const compareArray = initialArray;
+    const compareArray = [...initialArray];
     sortProductsByPrice(initialArray, 'asc'); 
     expect(compareArray).toEqual(initialArray)
   });
   test("'desc' не меняет исходный массив [1, 3, 4]", () => {
     const initialArray = products.filter(({ id }) => [1, 3, 4].includes(id));
-    const compareArray = initialArray;
+    const compareArray = [...initialArray];
     sortProductsByPrice(initialArray, 'desc'); 
     expect(compareArray).toEqual(initialArray)
   });

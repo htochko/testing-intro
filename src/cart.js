@@ -6,7 +6,7 @@ const minSubtotalForFreeDelivery = 50000;
 const availableDiscounts = [{code:'SAVE10', minSubtotal: 20000, discount:10}];
 
 function addToCart(cart, product, quantity) {
-  if (quantity === 0) {
+  if (quantity <= 0) {
     throw new RangeError;
   } 
   const existent = cart.find(({id}) => product.id)
@@ -21,7 +21,7 @@ function addToCart(cart, product, quantity) {
 }
 
 function changeQuantity(cart, productId, newQuantity) { 
-  if (newQuantity === 0) {
+  if (newQuantity <= 0) {
     throw new RangeError;
   }
   
@@ -44,7 +44,7 @@ function calculateCartSubtotal(cart) {
 function calculateOrderTotal(cart, promoCode) {
   const subtotal = calculateCartSubtotal(cart) ;
   const delivery = subtotal > minSubtotalForFreeDelivery ? 0: defaultDeliveryCost;
-  discount = availableDiscounts.find((discount) => discount.code==promoCode && subtotal >= discount.minSubtotal)?.discount/100*subtotal || 0;
+  const discount = availableDiscounts.find((discount) => discount.code==promoCode && subtotal >= discount.minSubtotal)?.discount/100*subtotal || 0;
   return {subtotal, discount, delivery, total: subtotal-discount+delivery}
 }
 
